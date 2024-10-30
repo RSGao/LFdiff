@@ -44,7 +44,7 @@ Run ```MidaS/run.py``` to obtain initial disparity. Then, rescale the resulting 
 ### 3.Data Preprocess
 Create rgb-d data.
 
-```python Generate_Data_for_Training_rgbd.py```
+```python ./DataProcessing/Generate_Data_for_Training_rgbd.py```
 
 Whether in the training or inference stage, input single images or center view of light fields are cropped into 32x32 spatial resolution patches.
 
@@ -60,5 +60,18 @@ Set ```state='train'``` and path configs in ```MainCondition.py```
 
 Download pretrained checkpoint ([Link](https://pan.baidu.com/s/1LSmRowQE3fG4NW7CCJdiPw), pwd:cbix) and put it to the ```CheckpointsCondition``` folder.
 
+For LF synthesis from central views of LFs, follow the above Data Preparation part to prepare test data and then put h5 files to ```test_image/test_h5/scene_name```.
+
+For LF synthesis from single images, put the RGB image to ```test_image/rgb``` and rescaled disp to ```test_image/rescaled_disp```, run ```python DataProcessing/generated_h5_data.py```, the results will be save to ```test_image/test_h5/scene_name```. 
+
+Set ```state='eval'``` and path configs in ```MainCondition.py```
+
+```python MainCondition.py```
+
+To obtain full views, run ```python overlap_aggregate.py```.
 
 
+## Acknowledgements
+
+This repository is based on [BasicLFSR](https://github.com/ZhengyuLiang24/BasicLFSR) and [DDPM](https://github.com/zoubohao/DenoisingDiffusionProbabilityModel-ddpm-).
+Thanks for their data and open source code.
